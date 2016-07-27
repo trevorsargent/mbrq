@@ -1,2 +1,2 @@
 # mbrq
-## terinal based, ascii, choose your own adventure
+## terminal based, ascii, choose your own adventure
