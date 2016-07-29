@@ -7,7 +7,6 @@
 	// chance state
 
 
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -15,11 +14,21 @@ FILE* openFile();
 
 int main(){
 
-	FILE *story = openFile();
+	FILE *storyFile = openFile();
 
+	fseek(storyFile, 0, SEEK_END); // seek to end of file
+	int size = ftell(storyFile); // get current file pointer
+	fseek(storyFile, 0, SEEK_SET);
+
+	char* story = (char*) malloc(size * sizeof(char));
+	int i = 0;
 	do{
-		printf("%c", fgetc(story));
-	}while(!feof(story) && !ferror(story));
+		*(story + i) = fgetc(storyFile);
+		i++;
+	}while(!feof(storyFile) && !ferror(storyFile));
+
+	printf("%s\n", story);
+	free(story);
 
 	return 0;
 }
