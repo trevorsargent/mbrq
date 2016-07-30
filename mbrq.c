@@ -16,19 +16,25 @@ int main(){
 
 	FILE *storyFile = openFile();
 
-	fseek(storyFile, 0, SEEK_END); // seek to end of file
-	int size = ftell(storyFile); // get current file pointer
-	fseek(storyFile, 0, SEEK_SET);
+	int lines = 128;
+	char** storyLines = (char**) malloc(lines * sizeof(char*));
 
-	char* story = (char*) malloc(size * sizeof(char));
 	int i = 0;
+
 	do{
-		*(story + i) = fgetc(storyFile);
+		*(storyLines + i) = (char*) malloc(256 * sizeof(char));
+		fgets(*(storyLines + i), sizeof(*(storyLines+i)), storyFile);
 		i++;
+
+		if(i == lines - 1){
+			lines += 128;
+			realloc(storyLines, lines);
+		}
+
 	}while(!feof(storyFile) && !ferror(storyFile));
 
-	printf("%s\n", story);
-	free(story);
+	// printf("%s\n", story);
+	// free(storyFile);
 
 	return 0;
 }
