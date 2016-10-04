@@ -4,4 +4,7 @@
 
 FILE* openFile();
 
+FILE* openFilePath(char*);
+
 Waypoint* readFile(FILE*);
+

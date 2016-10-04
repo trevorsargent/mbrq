@@ -3,9 +3,16 @@
 #include <string.h>
 #include "lib/fileManagement.h"
 
-int main() {
+int main(int argc, char *argv[]) {
 
-	FILE *storyFile = openFile();
+	FILE *storyFile;
+
+	if (argc == 1){
+		storyFile = openFile();
+	}else{
+		storyFile = openFilePath(argv[1]);
+	}
+
 
 	Waypoint* wp = readFile(storyFile);
 

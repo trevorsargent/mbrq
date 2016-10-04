@@ -115,3 +115,15 @@ FILE* openFile() {
 	return fr;
 
 }
+
+FILE* openFilePath(char *file){
+
+
+	FILE *fr = fopen(file, "r");
+	if (fr == NULL) {
+		printf("The file didn't open.\n");
+		return 0;
+	}
+	return fr;
+
+}
