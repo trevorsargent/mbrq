@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>mbrq - stories at stroke of your keys</title>
+</head>
+<body>
+
+<h1>
+	mbrq
+</h1>
+
+<h2>
+	Stories at the stroke of your keys.
+</h2>
+
+<p>
+	I Lied. mbrq isn't actually a game. It's a system. It's a little program that runs in the terminal, and plays choose your own adventure stories. It's all open souce, so everyone can write stories to play and share.  
+</p>
+
+<h3>
+	Story-file Format Specs
+</h3>
+<pre>
+	
+	#[storyTitle].mbrq
+
+	0 // number of the story node
+	>>> // begin content of the node
+	name:[name] // name of the location
+	environment:[name] // name of the environment
+	time: [0 - 3] // 0 -> morning, 1 -> day, 2 -> evening, 3 -> night
+	optionA:"[message]"
+	optionAPath: 0, 1, 2, ... // number of the node this option goes to
+	(repeat this for option(Path) B and C)
+	<<< // end node content
+
+	1
+	>>>
+	...
+</pre>
+
+</body>
+</html>
