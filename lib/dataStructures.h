@@ -1,11 +1,11 @@
 typedef struct {
 
 	char environment[100];
-	char time[2];
+	int time;
 
 	char name[100];
 	char text[256];
 	char options[3][256];
-	char optionPaths[3][2];
+	int optionPaths[3];
 
 } Waypoint;

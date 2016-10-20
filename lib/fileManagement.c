@@ -12,7 +12,7 @@ Waypoint* readFile(FILE* fp) {
 	char* trimmed;
 	char* token;
 	char delim[2] = ":";
-
+	
 	do {
 
 		// read in the line
@@ -43,7 +43,7 @@ Waypoint* readFile(FILE* fp) {
 			} else if (strcmp(token, "name") == 0) {
 				// reading name
 				token = strtok(NULL, delim);
-				strcpy(wp[numPoints].name, token);		
+				strcpy(wp[numPoints].name, token);	
 
 			} else if (strcmp(token, "environment") == 0) {
 				// reading environment
@@ -53,7 +53,7 @@ Waypoint* readFile(FILE* fp) {
 			} else if (strcmp(token, "time") == 0) {
 				// reading time 
 				token = strtok(NULL, delim);
-				strcpy(wp[numPoints].time, token);	
+				wp[numPoints].time = atoi(token);	
 
 			} else if (strcmp(token, "optionA") == 0) {
 				// reading optionA
@@ -73,17 +73,17 @@ Waypoint* readFile(FILE* fp) {
 			} else if (strcmp(token, "optionAPath") == 0) {
 				// reading optionAPath
 				token = strtok(NULL, delim);
-				strcpy(wp[numPoints].optionPaths[0], token);	
+				wp[numPoints].optionPaths[0] = atoi(token);	
 
 			} else if (strcmp(token, "optionBPath") == 0) {
 				// reading optionBPath
 				token = strtok(NULL, delim);
-				strcpy(wp[numPoints].optionPaths[1], token);		
+				wp[numPoints].optionPaths[1] = atoi(token);		
 
 			} else if (strcmp(token, "optionCPath") == 0) {
 				// reading optionCPath
 				token = strtok(NULL, delim);
-				strcpy(wp[numPoints].optionPaths[2], token);	
+				wp[numPoints].optionPaths[2] = atoi(token);	
 
 			}
 
@@ -100,10 +100,40 @@ Waypoint* readFile(FILE* fp) {
 
 FILE* openFile() {
 
-	char* path = (char*) malloc (128 * sizeof(char));
+	char* storyName = (char*) malloc (128 * sizeof(char));
 
-	printf("Enter the path to the .mbrq file you'd like to open: ");
-	scanf("%127s", path);
+	printf("Enter the name of the story you'd like to read: ");
+	scanf("%127s", storyName);
+
+	char pkgext[7] = ".mbrq/";
+	char stryext[7] = ".story";
+	char path[1024];
+
+	strcat(path, storyName);
+	strcat(path, pkgext);
+	strcat(path, storyName);
+	strcat(path, stryext);
+
+	FILE *fr = fopen(path, "r");
+	if (fr == NULL) {
+		printf("The file didn't open.\n");
+		return 0;
+	}
+	return fr;
+
+}
+
+FILE* openFilePath(char *storyName){
+
+
+	char pkgext[7] = ".mbrq/";
+	char stryext[7] = ".story";
+	char path[1024];
+
+	strcat(path, storyName);
+	strcat(path, pkgext);
+	strcat(path, storyName);
+	strcat(path, stryext);
 
 	FILE *fr = fopen(path, "r");
 	if (fr == NULL) {
@@ -111,19 +141,6 @@ FILE* openFile() {
 		return 0;
 	}
 
-	free(path);
-	return fr;
-
-}
-
-FILE* openFilePath(char *file){
-
-
-	FILE *fr = fopen(file, "r");
-	if (fr == NULL) {
-		printf("The file didn't open.\n");
-		return 0;
-	}
 	return fr;
 
 }
